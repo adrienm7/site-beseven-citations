@@ -1,0 +1,478 @@
+/* Importation des polices */
+
+
+
+@font-face {
+    font-family: "Helvetica Neue";
+    font-weight: normal;
+    font-style: normal;
+    src:url("https://static.beseven.fr/fonts/HelveticaNeue-Roman.woff2") format("woff2"),
+        url("https://static.beseven.fr/fonts/HelveticaNeue-Roman.woff") format("woff"),
+        url("https://static.beseven.fr/fonts/HelveticaNeue-Roman.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family: "Helvetica Neue";
+    font-weight: bold;
+    font-style: normal;
+    src:url("https://static.beseven.fr/fonts/HelveticaNeue-Bold.woff2") format("woff2"),
+        url("https://static.beseven.fr/fonts/HelveticaNeue-Bold.woff") format("woff"),
+        url("https://static.beseven.fr/fonts/HelveticaNeue-Bold.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family: "Cinzel";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Cinzel"),
+         url("https://static.beseven.fr/fonts/Cinzel.woff2") format("woff2"),
+         url("https://static.beseven.fr/fonts/Cinzel.woff") format("woff"),
+         url("https://static.beseven.fr/fonts/Cinzel.ttf") format("truetype");
+}
+
+
+
+
+
+
+
+/* Style général */
+
+html, body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
+    font-size: 130%;
+    /*font-size: clamp(12px, 1.5rem, 18px); Propriété intéressante pour rendre sa taille fluide*/
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    max-width: 90vw;
+    color: #008000;
+}
+
+
+@media screen and (max-width: 800px) {
+    html, body {
+        font-size: 100%;
+      }
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+
+contenu-page {
+    flex: 1 0 auto;
+    text-align: center;
+    padding: 3vh 5vw 0vh 5vw;
+}
+
+main {
+    max-width: 1024px;
+    margin: 0 auto;   
+    font-size: 1rem;
+}
+
+
+footer {
+    flex-shrink: 0;
+    color: white;
+    background-color: black;
+    width: 100vw;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 1rem;
+}
+.texte_footer {
+    padding: 12px;
+    margin-bottom: 0px;
+}
+
+
+.espace_insecable {
+    font-size: 0.67em;
+}
+
+.astuce {
+    font-size: 0.8rem;
+}
+
+
+
+
+
+/* Style de citation */
+
+blockquote {
+    font-style: normal;
+    font-family: Cinzel;
+	font-size: 1.5rem;
+	line-height: 2rem;
+	text-transform: uppercase;
+	color: #008000;
+}
+
+#auteur {
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+
+
+
+/* Espacement et séparateurs */
+
+petit-espace {
+    height: 5vh;
+    display: block;
+}
+
+grand-espace {
+    height: 10vh;
+    display: block;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(231, 231, 231, 0), rgba(231, 231, 231, 1), rgba(2311, 2311, 231, 0));
+}
+
+
+
+
+
+/* Liens */
+
+.lien_site {
+    color: white;
+}
+
+.lien_site:hover {
+    color: white;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.icone_lien {
+    text-decoration: none;
+    font-size: 0.7rem;
+}
+
+#couleur_lien {
+    color: #008000;
+}
+
+
+
+
+
+/* Divers */
+
+.glow {
+	animation: glow 800ms ease-out infinite alternate;
+
+}
+
+@keyframes glow {
+    0% {
+		border-color: #006bdd;
+		box-shadow: 0 0 1px rgba(0,60,255,.2);
+    }	
+    100% {
+		border-color: #006bdd;
+		box-shadow: 0 0 7px rgba(0,60,255,.6);
+    }
+}
+
+
+
+
+
+/* === Styles non utilisés === */
+
+/* Pour avoir un style de bouton de Bootstrap 3 disparu dans la version 4*/
+.btn-default { color: #333; background-color: #fff; border-color: #ccc; }
+.btn-default:focus { color: #333; background-color: #e6e6e6; border-color: #8c8c8c; }
+.btn-default:hover { color: #333; background-color: #e6e6e6; border-color: #adadad; }
+.btn-default:active { color: #333; background-color: #e6e6e6; border-color: #adadad; }
+
+
+
+
+
+
+
+/* === Boutons de différentes couleurs === */
+
+
+
+
+
+/* Btn */
+
+
+
+.btn-red {
+  color: #fff;
+  background-color: red;
+  border-color: red;
+}
+
+.btn-red:hover {
+  color: #fff;
+  background-color: red;
+  border-color: red;
+}
+
+.btn-red:focus, .btn-red.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.5);
+}
+
+.btn-red:not(:disabled):not(.disabled):active, .btn-red:not(:disabled):not(.disabled).active,
+.show > .btn-red.dropdown-toggle {
+  color: #fff;
+  background-color: red;
+  border-color: red;
+}
+
+
+
+.btn-orange {
+  color: #fff;
+  background-color: #FF4500;
+  border-color: #FF4500;
+}
+
+.btn-orange:hover {
+  color: #fff;
+  background-color: #FF4500;
+  border-color: #FF4500;
+}
+
+.btn-orange:focus, .btn-orange.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 123, 123, 0.5);
+}
+
+.btn-orange:not(:disabled):not(.disabled):active, .btn-orange:not(:disabled):not(.disabled).active,
+.show > .btn-orange.dropdown-toggle {
+  color: #fff;
+  background-color: #FF4500;
+  border-color: #FF4500;
+}
+
+
+
+.btn-green {
+  color: #fff;
+  background-color: green;
+  border-color: green;
+}
+
+.btn-green:hover {
+  color: #fff;
+  background-color: green;
+  border-color: green;
+}
+
+.btn-green:focus, .btn-green.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 0, 0.5);
+}
+
+.btn-green:not(:disabled):not(.disabled):active, .btn-green:not(:disabled):not(.disabled).active,
+.show > .btn-green.dropdown-toggle {
+  color: #fff;
+  background-color: green;
+  border-color: green;
+}
+
+
+
+.btn-purple {
+  color: #fff;
+  background-color: purple;
+  border-color: purple;
+}
+
+.btn-purple:hover {
+  color: #fff;
+  background-color: purple;
+  border-color: purple;
+}
+
+.btn-purple:focus, .btn-purple.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 255, 0.5);
+}
+
+.btn-purple:not(:disabled):not(.disabled):active, .btn-purple:not(:disabled):not(.disabled).active,
+.show > .btn-purple.dropdown-toggle {
+  color: #fff;
+  background-color: #7062cc;
+  border-color: #705cbf;
+}
+
+
+
+.btn-black {
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+
+.btn-black:hover {
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+
+.btn-black:focus, .btn-black.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
+}
+
+.btn-black:not(:disabled):not(.disabled):active, .btn-black:not(:disabled):not(.disabled).active,
+.show > .btn-black.dropdown-toggle {
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+
+
+
+.btn-blue {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-blue:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-blue:focus, .btn-blue.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-blue:not(:disabled):not(.disabled):active, .btn-blue:not(:disabled):not(.disabled).active,
+.show > .btn-blue.dropdown-toggle {
+  color: #fff;
+  background-color: #0062cc;
+  border-color: #005cbf;
+}
+
+
+
+
+
+/* Btn outline*/
+
+
+
+.btn-outline-red {
+  color: red;
+  background-color: transparent;
+  background-image: none;
+  border-color: red;
+}
+.btn-outline-red:hover {
+  color: #fff;
+  background-color: red;
+  border-color: red;
+}
+.btn-outline-red:focus, .btn-outline-red.focus {
+  box-shadow: 0 0 0 0.2rem rgba(128, 0, 0, 0.5);
+}
+
+
+.btn-outline-orange {
+  color: #FF4500;
+  background-color: transparent;
+  background-image: none;
+  border-color: #FF4500;
+}
+.btn-outline-orange:hover {
+  color: #fff;
+  background-color: #FF4500;
+  border-color: #FF4500;
+}
+.btn-outline-orange:focus, .btn-outline-orange.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 187, 0, 0.5);
+}
+
+
+
+.btn-outline-green {
+  color: green;
+  background-color: transparent;
+  background-image: none;
+  border-color: green;
+}
+.btn-outline-green:hover {
+  color: #fff;
+  background-color: green;
+  border-color: green;
+}
+.btn-outline-green:focus, .btn-outline-green.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.5);
+}
+
+
+
+.btn-outline-purple {
+  color: purple;
+  background-color: transparent;
+  background-image: none;
+  border-color: purple;
+}
+.btn-outline-purple:hover {
+  color: #fff;
+  background-color: purple;
+  border-color: purple;
+}
+.btn-outline-purple:focus, .btn-outline-purple.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 255, 0.5);
+}
+
+
+.btn-outline-black {
+  color: black;
+  background-color: transparent;
+  background-image: none;
+  border-color: black;
+}
+.btn-outline-black:hover {
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+.btn-outline-black:focus, .btn-outline-black.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.5);
+}
+
+
+
+.btn-outline-blue {
+  color: #007bff;
+  background-color: transparent;
+  background-image: none;
+  border-color: #007bff;
+}
+.btn-outline-blue:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.btn-outline-blue:focus, .btn-outline-blue.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
