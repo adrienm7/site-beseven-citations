@@ -1,54 +1,76 @@
-import bdd from "../citations.json" assert { type: "json" };
+let bdd;
+
+fetch("/static/js/citations.json")
+	.then((response) => {
+		if (!response.ok) {
+			throw new Error("Erreur lors du chargement du fichier JSON");
+		}
+		return response.json();
+	})
+	.then((data) => {
+		bdd = data;
+		console.log(bdd); // Affiche les données
+	})
+	.catch((error) => console.error("Erreur :", error));
+
 /* Variables stockant la catégorie et les couleurs actuellement utilisées */
 var categorie = "Toutes";
 var classe_bouton_recharger = "btn-outline-green";
 var classe_bouton_categorie = "btn-green";
-console.log(bdd);
 
 /* Pour garder plusieurs fois la même couleur avant de changer */
 var compteur = 0;
 
 function nouvelle_citation(categorie) {
-	if (categorie == "Toutes") {
-		categorie = "TRUE";
-	}
-	bdd_categorie = bdd.filter((citation) => citation.categorie == categorie);
-	data = bdd_categorie[Math.floor(Math.random() * bdd_categorie.length)];
-	if (data.auteur !== "") {
-		data.auteur = "—&nbsp;" + data.auteur;
-	}
-	$("#citation").html(data.citation);
-	$("#auteur").html(data.auteur);
-	typography(document.getElementById("citation"));
-
-	compteur = compteur + 1;
-	if (compteur > 2) {
-		var nb_aleatoire = Math.floor(Math.random() * 6); // Génère un nombre entre 0 et 5 car random()∈[0,1[
-		var couleur = "blue";
-		switch (nb_aleatoire) {
-			case 0:
-				couleur = "red";
-				break;
-			case 1:
-				couleur = "orange";
-				break;
-			case 2:
-				couleur = "green";
-				break;
-			case 3:
-				couleur = "purple";
-				break;
-			case 4:
-				couleur = "black";
-				break;
-			default:
-				couleur = "blue";
+	console.log("Nouvelle citation de la catégorie : " + categorie);
+	if (bdd != undefined) {
+		let bdd_categorie;
+		if (categorie == "Toutes") {
+			bdd_categorie = bdd;
+		} else {
+			bdd_categorie = bdd.filter((citation) => citation.categorie == categorie);
 		}
-		compteur = 0;
-		changer_couleur(couleur);
-	}
+		console.log(bdd_categorie);
+		const data = bdd_categorie[Math.floor(Math.random() * bdd_categorie.length)];
+		console.log(data);
+		if (data !== undefined) {
+			if (data.auteur !== "") {
+				data.auteur = "—&nbsp;" + data.auteur;
+			}
+			$("#citation").html(data.citation);
+			$("#auteur").html(data.auteur);
+			typography(document.getElementById("citation"));
 
-	document.getElementById("citation").scrollIntoView(true);
+			compteur = compteur + 1;
+			if (compteur > 2) {
+				var nb_aleatoire = Math.floor(Math.random() * 6); // Génère un nombre entre 0 et 5 car random()∈[0,1[
+				var couleur = "blue";
+				switch (nb_aleatoire) {
+					case 0:
+						couleur = "red";
+						break;
+					case 1:
+						couleur = "orange";
+						break;
+					case 2:
+						couleur = "green";
+						break;
+					case 3:
+						couleur = "purple";
+						break;
+					case 4:
+						couleur = "black";
+						break;
+					default:
+						couleur = "blue";
+				}
+				compteur = 0;
+				changer_couleur(couleur);
+			}
+
+			document.getElementById("citation").scrollIntoView(true);
+		}
+	}
 }
 
 function changer_couleur(couleur) {
@@ -133,7 +155,7 @@ function changer_couleur(couleur) {
 	}
 }
 
-$("#recharger").click(function () {
+document.getElementById("recharger").addEventListener("click", function () {
 	nouvelle_citation(categorie);
 });
 
