@@ -1,6 +1,6 @@
 let bdd;
 
-fetch("/static/js/citations.json")
+fetch("/citations.json")
 	.then((response) => {
 		if (!response.ok) {
 			throw new Error("Erreur lors du chargement du fichier JSON");
