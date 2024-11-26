@@ -136,7 +136,37 @@
 				>
 				<!-- <a href="/static/documents/liste-citations.pdf"><button class="btn btn-default">Télécharger au format PDF</button></a> -->
 
-				<div id="contenu"></div>
+				<div id="contenu">
+					<h2 id="titre-Inspirant" data-nom="Inspirant">Inspirant</h2>
+					<div id="citations-Inspirant"></div>
+
+					<h2 id="titre-Action" data-nom="Action">Action</h2>
+					<div id="citations-Action"></div>
+
+					<h2 id="titre-Réflexion" data-nom="Réflexion">Réflexion</h2>
+					<div id="citations-Réflexion"></div>
+
+					<h2 id="titre-Apprentissage" data-nom="Apprentissage">Apprentissage</h2>
+					<div id="citations-Apprentissage"></div>
+
+					<h2 id="titre-Relations" data-nom="Relations">Relations</h2>
+					<div id="citations-Relations"></div>
+
+					<h2 id="titre-Bonheur" data-nom="Bonheur">Bonheur</h2>
+					<div id="citations-Bonheur"></div>
+
+					<h2 id="titre-Autres" data-nom="Autres">Autres</h2>
+					<div id="citations-Autres"></div>
+
+					<h2 id="titre-Humour" data-nom="Humour">Humour</h2>
+					<div id="citations-Humour"></div>
+
+					<h2 id="titre-Geek" data-nom="Geek">Geek</h2>
+					<div id="citations-Geek"></div>
+
+					<h2 id="titre-BeSeven" data-nom="BeSeven">BeSeven</h2>
+					<div id="citations-BeSeven"></div>
+				</div>
 			</main>
 
 			<footer>
@@ -148,9 +178,27 @@
 			</footer>
 		</div>
 
+		<script src="/static/js/jquery-3.5.1.min.js"></script>
+		<script src="/static/js/bootstrap.bundle.min.js"></script>
+		<script src="/static/js/noframework.waypoints.min.js"></script>
+		<script src="/static/js/scripts_liste-citations.js"></script>
 		<script>
 			// Sélection de l'élément parent où insérer les catégories et citations
 			const container = document.getElementById("contenu");
+
+			// Liste des catégories à afficher
+			const categories = [
+				"Inspirant",
+				"Action",
+				"Réflexion",
+				"Apprentissage",
+				"Relations",
+				"Bonheur",
+				"Autres",
+				"Humour",
+				"Geek",
+				"BeSeven",
+			];
 
 			// Fonction pour charger et afficher les citations par catégorie
 			function afficheCitations() {
@@ -162,31 +210,12 @@
 						return response.json();
 					})
 					.then((data) => {
-						// Liste des catégories à afficher
-						const categories = [
-							"Inspirant",
-							"Action",
-							"Réflexion",
-							"Apprentissage",
-							"Relations",
-							"Bonheur",
-							"Autres",
-							"Humour",
-							"Geek",
-							"BeSeven",
-						];
-
 						categories.forEach((categorie) => {
-							// Création d'un titre pour la catégorie
-							const titre = document.createElement("h2");
-							titre.id = `titre-${categorie}`;
-							titre.textContent = categorie;
-
-							// Création d'un séparateur
-							const separateur = document.createElement("hr");
-
-							// Création d'un conteneur pour les citations
-							const citationsContainer = document.createElement("div");
+							// Récupérer les éléments statiques déjà présents
+							const titre = document.getElementById(`titre-${categorie}`);
+							const citationsContainer = document.getElementById(
+								`citations-${categorie}`
+							);
 
 							// Filtrer les citations de la catégorie actuelle
 							const citationsFiltrees = data.filter(
@@ -197,32 +226,45 @@
 							citationsFiltrees.forEach((item) => {
 								const blockquote = document.createElement("blockquote");
 								blockquote.innerHTML = `
-            ${item.citation}<br />
-            ${item.auteur ? `<cite>— ${item.auteur}</cite>` : ""}
-          `;
+									${item.citation}<br />
+									${item.auteur ? `<cite>— ${item.auteur}</cite>` : ""}
+								`;
 								citationsContainer.appendChild(blockquote);
 							});
-
-							// Ajouter les éléments au conteneur principal
-							container.appendChild(titre);
-							container.appendChild(separateur);
-							container.appendChild(citationsContainer);
 						});
+
+						// Rafraîchir Waypoints après ajout des citations
+						Waypoint.refreshAll();
 					})
 					.catch((error) => console.error("Erreur :", error));
 			}
 
-			// Appel de la fonction pour charger et afficher les citations
+			// Initialiser les Waypoints pour chaque titre
+			function initWaypoints() {
+				categories.forEach((categorie, index) => {
+					const element = document.getElementById(`titre-${categorie}`);
+					const previousCategorie = index === 0 ? "Toutes" : categories[index - 1];
+
+					new Waypoint({
+						element: element,
+						handler: function (direction) {
+							if (direction === "up") {
+								change(previousCategorie);
+							} else {
+								change(categorie);
+							}
+						},
+					});
+				});
+			}
+
+			// Charger les citations et initialiser les Waypoints
 			afficheCitations();
+			initWaypoints();
 		</script>
 
 		<!-- Belle typographie française -->
 		<script src="/static/js/typography.js" async></script>
-
-		<script src="/static/js/jquery-3.5.1.min.js"></script>
-		<script src="/static/js/bootstrap.bundle.min.js"></script>
-		<script src="/static/js/noframework.waypoints.min.js"></script>
-		<script src="/static/js/scripts_liste-citations.js"></script>
 
 		<!-- Avis sur le site dans Google -->
 		<script type="application/ld+json">
