@@ -3,15 +3,17 @@
 	"type": "module",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "astro dev",
-		"build": "astro build",
+		"dev": "npm run encode-citations && astro dev",
+		"build": "npm run encode-citations && astro build",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"encode-citations": "node encode-citations.js"
 	},
 	"dependencies": {
 		"astro": "^5.0.5"
 	},
 	"devDependencies": {
+		"fs": "^0.0.1-security",
 		"prettier-plugin-astro": "^0.14.1"
 	}
 }

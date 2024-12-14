@@ -1,5 +1,28 @@
 ---
 import Base from "../layouts/Base.astro";
+
+// Importation des citations depuis un fichier JSON statique
+import citations from "../data/citations.json";
+
+// Catégories disponibles
+const categories = [
+	"Inspirant",
+	"Action",
+	"Réflexion",
+	"Apprentissage",
+	"Relations",
+	"Bonheur",
+	"Autres",
+	"Humour",
+	"Geek",
+	"BeSeven",
+];
+
+// Organiser les citations par catégorie
+const citationsByCategory = categories.reduce((acc, category) => {
+	acc[category] = citations.filter((citation) => citation.categorie === category);
+	return acc;
+}, {});
 ---
 
 <Base>
@@ -80,35 +103,27 @@ import Base from "../layouts/Base.astro";
 			<!-- <a href="/documents/liste-citations.pdf"><button class="btn btn-default">Télécharger au format PDF</button></a> -->
 
 			<div id="contenu">
-				<h2 id="titre-Inspirant" data-nom="Inspirant">Inspirant</h2>
-				<div id="citations-Inspirant"></div>
-
-				<h2 id="titre-Action" data-nom="Action">Action</h2>
-				<div id="citations-Action"></div>
-
-				<h2 id="titre-Réflexion" data-nom="Réflexion">Réflexion</h2>
-				<div id="citations-Réflexion"></div>
-
-				<h2 id="titre-Apprentissage" data-nom="Apprentissage">Apprentissage</h2>
-				<div id="citations-Apprentissage"></div>
-
-				<h2 id="titre-Relations" data-nom="Relations">Relations</h2>
-				<div id="citations-Relations"></div>
-
-				<h2 id="titre-Bonheur" data-nom="Bonheur">Bonheur</h2>
-				<div id="citations-Bonheur"></div>
-
-				<h2 id="titre-Autres" data-nom="Autres">Autres</h2>
-				<div id="citations-Autres"></div>
-
-				<h2 id="titre-Humour" data-nom="Humour">Humour</h2>
-				<div id="citations-Humour"></div>
-
-				<h2 id="titre-Geek" data-nom="Geek">Geek</h2>
-				<div id="citations-Geek"></div>
-
-				<h2 id="titre-BeSeven" data-nom="BeSeven">BeSeven</h2>
-				<div id="citations-BeSeven"></div>
+				{
+					categories.map((categorie) => {
+						const citationsForCategory = citationsByCategory[categorie];
+						return (
+							<>
+								<h2 id={`titre-${categorie}`} data-nom={categorie}>
+									{categorie}
+								</h2>
+								<div id={`citations-${categorie}`}>
+									{citationsForCategory.map((citation) => (
+										<blockquote>
+											{citation.citation}
+											<br />
+											{citation.auteur && <cite>— {citation.auteur}</cite>}
+										</blockquote>
+									))}
+								</div>
+							</>
+						);
+					})
+				}
 			</div>
 		</main>
 
@@ -125,78 +140,44 @@ import Base from "../layouts/Base.astro";
 <link rel="stylesheet" href="/css/style_liste_citations.css" />
 <script src="/js/noframework.waypoints.min.js" is:inline></script>
 <script>
-	// Sélection de l'élément parent où insérer les catégories et citations
-	const container = document.getElementById("contenu");
+	// Initialiser Waypoints après que les citations aient été rendues
+	document.addEventListener("DOMContentLoaded", () => {
+		// Fonction pour initialiser les Waypoints
+		function initWaypoints() {
+			const categories = [
+				"Inspirant",
+				"Action",
+				"Réflexion",
+				"Apprentissage",
+				"Relations",
+				"Bonheur",
+				"Autres",
+				"Humour",
+				"Geek",
+				"BeSeven",
+			];
 
-	// Liste des catégories à afficher
-	const categories = [
-		"Inspirant",
-		"Action",
-		"Réflexion",
-		"Apprentissage",
-		"Relations",
-		"Bonheur",
-		"Autres",
-		"Humour",
-		"Geek",
-		"BeSeven",
-	];
+			categories.forEach((categorie, index) => {
+				const element = document.getElementById(`titre-${categorie}`);
+				const previousCategorie = index === 0 ? "Toutes" : categories[index - 1];
 
-	// Fonction pour charger et afficher les citations par catégorie
-	function afficheCitations() {
-		fetch("/citations.json")
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Erreur lors du chargement du fichier JSON");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				categories.forEach((categorie) => {
-					// Récupérer les éléments statiques déjà présents
-					const titre = document.getElementById(`titre-${categorie}`);
-					const citationsContainer = document.getElementById(`citations-${categorie}`);
-
-					// Filtrer les citations de la catégorie actuelle
-					const citationsFiltrees = data.filter((item) => item.categorie === categorie);
-
-					// Générer les blocs de citations
-					citationsFiltrees.forEach((item) => {
-						const blockquote = document.createElement("blockquote");
-						blockquote.innerHTML = `
-								${item.citation}<br />
-								${item.auteur ? `<cite>— ${item.auteur}</cite>` : ""}
-							`;
-						citationsContainer.appendChild(blockquote);
-					});
+				new Waypoint({
+					element: element,
+					handler: function (direction) {
+						if (direction === "up") {
+							change(previousCategorie);
+						} else {
+							change(categorie);
+						}
+					},
 				});
-
-				// Rafraîchir Waypoints après ajout des citations
-				Waypoint.refreshAll();
-			})
-			.catch((error) => console.error("Erreur :", error));
-	}
-
-	// Initialiser les Waypoints pour chaque titre
-	function initWaypoints() {
-		categories.forEach((categorie, index) => {
-			const element = document.getElementById(`titre-${categorie}`);
-			const previousCategorie = index === 0 ? "Toutes" : categories[index - 1];
-
-			new Waypoint({
-				element: element,
-				handler: function (direction) {
-					if (direction === "up") {
-						change(previousCategorie);
-					} else {
-						change(categorie);
-					}
-				},
 			});
-		});
-	}
+		}
 
-	// Charger les citations et initialiser les Waypoints
-	afficheCitations();
-	initWaypoints();
+		// Initialiser Waypoints
+		initWaypoints();
+
+		// Rafraîchir les Waypoints après ajout des citations
+		Waypoint.refreshAll();
+	});
 </script>

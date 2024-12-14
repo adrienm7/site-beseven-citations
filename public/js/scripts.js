@@ -1,6 +1,6 @@
 let bdd;
 
-fetch("/citations.json")
+fetch("/citations-encoded.json")
 	.then((response) => {
 		if (!response.ok) {
 			throw new Error("Erreur lors du chargement du fichier JSON");
@@ -28,12 +28,16 @@ function nouvelle_citation(categorie) {
 		if (categorie == "Toutes") {
 			bdd_categorie = bdd;
 		} else {
-			bdd_categorie = bdd.filter((citation) => citation.categorie == categorie);
+			bdd_categorie = bdd.filter((citation) => atob(citation.categorie) == categorie);
 		}
 		console.log(bdd_categorie);
 		const data = bdd_categorie[Math.floor(Math.random() * bdd_categorie.length)];
 		console.log(data);
 		if (data !== undefined) {
+			// Décoder les valeurs encodées en Base64 et s'assurer que les accents sont correctement gérés
+			data.citation = decodeURIComponent(escape(atob(data.citation)));
+			data.auteur = decodeURIComponent(escape(atob(data.auteur)));
+			data.categorie = decodeURIComponent(escape(atob(data.categorie)));
 			if (data.auteur !== "") {
 				data.auteur = "—&nbsp;" + data.auteur;
 			}
