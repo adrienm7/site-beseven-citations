@@ -4,8 +4,11 @@
 	font-family: "Cinzel";
 	font-style: normal;
 	font-weight: normal;
-	src: local("Cinzel"), url("../fonts/Cinzel.woff2") format("woff2"),
-		url("../fonts/Cinzel.woff") format("woff"), url("../fonts/Cinzel.ttf") format("truetype");
+	src:
+		local("Cinzel"),
+		url("../fonts/Cinzel.woff2") format("woff2"),
+		url("../fonts/Cinzel.woff") format("woff"),
+		url("../fonts/Cinzel.ttf") format("truetype");
 }
 
 /* Style général */

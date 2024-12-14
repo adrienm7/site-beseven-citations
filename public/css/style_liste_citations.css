@@ -1,3 +1,25 @@
+/* Importation des polices */
+
+@font-face {
+	font-family: "Helvetica Neue";
+	font-weight: normal;
+	font-style: normal;
+	src:
+		url("https://static.beseven.fr/fonts/HelveticaNeue-Roman.woff2") format("woff2"),
+		url("https://static.beseven.fr/fonts/HelveticaNeue-Roman.woff") format("woff"),
+		url("https://static.beseven.fr/fonts/HelveticaNeue-Roman.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Helvetica Neue";
+	font-weight: bold;
+	font-style: normal;
+	src:
+		url("https://static.beseven.fr/fonts/HelveticaNeue-Bold.woff2") format("woff2"),
+		url("https://static.beseven.fr/fonts/HelveticaNeue-Bold.woff") format("woff"),
+		url("https://static.beseven.fr/fonts/HelveticaNeue-Bold.ttf") format("truetype");
+}
+
 /* Style général */
 
 html,

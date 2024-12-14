@@ -1,0 +1,102 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base>
+	<h1>Afficheur de citations aléatoires</h1>
+	<main>
+		<hr />
+		<p>
+			Bienvenue dans cet afficheur de citations aléatoires.
+			<strong>Les citations ont plus de force distillées unes par une</strong>, d’où l’intérêt
+			de créer cet outil. Cependant, si vous le préférez, vous pouvez aussi accéder
+			directement à la
+			<a href="/liste-citations/"
+				><span id="couleur_lien"
+					>liste de toutes les
+					<span class="d-inline-block"
+						>citations<i class="fad fa-external-link align-top icone_lien"></i></span
+					></span
+				></a
+			>
+		</p>
+		<p class="astuce">
+			<strong>Astuce :</strong> Vous pouvez aussi charger une nouvelle citation en appuyant sur
+			la touche espace de votre clavier !
+		</p>
+		<hr />
+
+		<petit-espace></petit-espace>
+
+		<blockquote>
+			<p>
+				<span class="quote_mark">« </span><span id="citation"
+					>Le fossé entre la connaissance et l’action est beaucoup plus grand que celui
+					qui existe entre l’ignorance et la connaissance.</span
+				><span class="quote_mark"> »</span>
+			</p>
+			<cite><span id="auteur">—&nbsp;Chris Guillebeau</span></cite>
+		</blockquote>
+
+		<div class="btn-group">
+			<div class="btn-group">
+				<button
+					class="btn btn-green dropdown-toggle"
+					type="button"
+					id="categorie_selectionnee"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i class="far fa-globe"></i> Toutes
+				</button>
+				<div class="dropdown-menu">
+					<button id="Toutes" class="dropdown-item" type="button">
+						<i class="far fa-globe"></i> Toutes les citations
+					</button>
+					<div class="dropdown-divider"></div>
+					<button id="Inspirant" class="dropdown-item" type="button">
+						<i class="far fa-compass"></i> Citations inspirantes
+					</button>
+					<button id="Action" class="dropdown-item" type="button">
+						<i class="fad fa-transporter-1"></i> Citations sur l’action et la persévérance
+					</button>
+					<button id="Réflexion" class="dropdown-item" type="button">
+						<i class="far fa-lightbulb"></i> Citations sur la réflexion
+					</button>
+					<button id="Apprentissage" class="dropdown-item" type="button">
+						<i class="fad fa-graduation-cap"></i> Citations sur l'apprentissage
+					</button>
+					<button id="Relations" class="dropdown-item" type="button">
+						<i class="fad fa-users"></i> Citations sur les relations
+					</button>
+					<button id="Bonheur" class="dropdown-item" type="button">
+						<i class="far fa-smile"></i> Citations sur le bonheur
+					</button>
+					<div class="dropdown-divider"></div>
+					<button id="Autres" class="dropdown-item" type="button">
+						<i class="fad fa-alicorn"></i> Citations diverses
+					</button>
+					<button id="Humour" class="dropdown-item" type="button">
+						<i class="far fa-laugh-squint"></i> Citations humoristiques
+					</button>
+					<button id="Geek" class="dropdown-item" type="button">
+						<i class="fas fa-laptop-code"></i> Citations geek, cinéphiles et otaku
+					</button>
+					<div class="dropdown-divider"></div>
+					<button id="BeSeven" class="dropdown-item" type="button">
+						<i class="far fa-universal-access"></i> Citations des membres de BeSeven
+					</button>
+				</div>
+			</div>
+			<button id="bouton_recharger" class="btn btn-outline-green">
+				<span id="recharger">Nouvelle citation</span>
+			</button>
+		</div>
+
+		<grand-espace></grand-espace>
+	</main>
+</Base>
+
+<link rel="stylesheet" href="/css/style.css" />
+<script src="/js/scripts.js" is:inline></script>
