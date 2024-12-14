@@ -1,15 +1,14 @@
 let bdd;
 
-fetch("/citations-encoded.json")
+fetch("/Y2l0YXRpb25zLWVuY29kZWQ=.json")
 	.then((response) => {
 		if (!response.ok) {
-			throw new Error("Erreur lors du chargement du fichier JSON");
+			throw new Error("Erreur lors du chargement de la citation");
 		}
 		return response.json();
 	})
 	.then((data) => {
 		bdd = data;
-		console.log(bdd); // Affiche les données
 	})
 	.catch((error) => console.error("Erreur :", error));
 

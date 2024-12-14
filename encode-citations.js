@@ -6,7 +6,7 @@ const __dirname = path.resolve();
 
 // Chemins des fichiers
 const inputFile = path.join(__dirname, "src/data/citations.json");
-const outputFile = path.join(__dirname, "public/encoded.json");
+const outputFile = path.join(__dirname, "public/Y2l0YXRpb25zLWVuY29kZWQ=.json");
 
 // Charger et encoder les citations
 const encodeCitations = async () => {
