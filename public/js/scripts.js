@@ -21,7 +21,6 @@ var classe_bouton_categorie = "btn-green";
 var compteur = 0;
 
 function nouvelle_citation(categorie) {
-	console.log("Nouvelle citation de la catégorie : " + categorie);
 	if (bdd != undefined) {
 		let bdd_categorie;
 		if (categorie == "Toutes") {
@@ -29,9 +28,7 @@ function nouvelle_citation(categorie) {
 		} else {
 			bdd_categorie = bdd.filter((citation) => atob(citation.categorie) == categorie);
 		}
-		console.log(bdd_categorie);
 		const data = bdd_categorie[Math.floor(Math.random() * bdd_categorie.length)];
-		console.log(data);
 		if (data !== undefined) {
 			// Décoder les valeurs encodées en Base64 et s'assurer que les accents sont correctement gérés
 			data.citation = decodeURIComponent(escape(atob(data.citation)));
@@ -163,7 +160,7 @@ document.getElementById("recharger").addEventListener("click", function () {
 });
 
 addEventListener("keyup", (event) => {
-	if (event.code === "Space") {
+	if (event.code === "Space" || event.code === "Enter") {
 		logKey();
 	}
 });
