@@ -1,56 +1,55 @@
 name: Build and deploy to GitHub Pages
 
 on:
-    # Runs on pushes targeting the default branch
-    push:
-        branches: ["main"]
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
 
-    # Allows you to run this workflow manually from the Actions tab
-    workflow_dispatch:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-    contents: read
-    pages: write
-    id-token: write
+  contents: read
+  pages: write
+  id-token: write
 
-	# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allows only one concurrent deployment, skipping queued runs, but lets the current one finish.
 concurrency:
-	group: "pages"
-	cancel-in-progress: false
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            # Étape 1 : Vérifier le code source
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      # Étape 1 : Vérifier le code source
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            # Étape 2 : Configurer Node.js
-            - name: Setup Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18 # Version de Node.js compatible avec Astro
-                  cache: "npm"
+      # Étape 2 : Configurer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Version de Node.js compatible avec Astro
+          cache: "npm"
 
-            # Étape 3 : Installer les dépendances
-            - name: Install dependencies
-              run: npm install
+      # Étape 3 : Installer les dépendances
+      - name: Install dependencies
+        run: npm install
 
-            # Étape 4 : Construire le site Astro
-            - name: Build Astro site
-              run: npm run build
+      # Étape 4 : Construire le site Astro
+      - name: Build Astro site
+        run: npm run build
 
-			# Étape 5 : Upload artifact
-			- name: Upload artifact
-			  uses: actions/upload-pages-artifact@v3
-			  with:
-				# Upload entire repository
-				path: '/dist'
-            # Étape 6 : Déployer sur GitHub Pages
-			- name: Deploy to GitHub Pages
-			id: deployment
-			uses: actions/deploy-pages@v4
+      # Étape 5 : Upload artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: dist # Répertoire généré par Astro
+
+      # Étape 6 : Déployer sur GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
