@@ -1,39 +1,23 @@
-let bdd;
-
-fetch("/Y2l0YXRpb25zLWVuY29kZWQ=.json")
-	.then((response) => {
-		if (!response.ok) {
-			throw new Error("Erreur lors du chargement de la citation");
-		}
-		return response.json();
-	})
-	.then((data) => {
-		bdd = data;
-	})
-	.catch((error) => console.error("Erreur :", error));
-
 /* Variables stockant la catégorie et les couleurs actuellement utilisées */
 var categorie = "Toutes";
 var classe_bouton_recharger = "btn-outline-green";
 var classe_bouton_categorie = "btn-green";
 
+const textDecoder = new TextDecoder("utf-8");
+
 /* Pour garder plusieurs fois la même couleur avant de changer */
 var compteur = 0;
 
 function nouvelle_citation(categorie) {
-	if (bdd != undefined) {
-		let bdd_categorie;
-		if (categorie == "Toutes") {
-			bdd_categorie = bdd;
-		} else {
-			bdd_categorie = bdd.filter((citation) => atob(citation.categorie) == categorie);
-		}
-		const data = bdd_categorie[Math.floor(Math.random() * bdd_categorie.length)];
+	console.log("Nouvelle citation");
+	if (citations != undefined) {
+		const citations_categorie = filtrerCitationsParCategorie(citations, categorie);
+		const data = citations_categorie[Math.floor(Math.random() * citations_categorie.length)];
 		if (data !== undefined) {
-			// Décoder les valeurs encodées en Base64 et s'assurer que les accents sont correctement gérés
-			data.citation = decodeURIComponent(escape(atob(data.citation)));
-			data.auteur = decodeURIComponent(escape(atob(data.auteur)));
-			data.categorie = decodeURIComponent(escape(atob(data.categorie)));
+			data.citation = safeBase64Decode(data.citation);
+			data.auteur = safeBase64Decode(data.auteur);
+			data.categorie = safeBase64Decode(data.categorie);
+
 			if (data.auteur !== "") {
 				data.auteur = "—&nbsp;" + data.auteur;
 			}
@@ -70,6 +54,46 @@ function nouvelle_citation(categorie) {
 
 			document.getElementById("citation").scrollIntoView(true);
 		}
+	}
+}
+
+function filtrerCitationsParCategorie(data, categorie) {
+	// Créer une copie profonde de 'data' pour éviter toute modification de l'original. Sinon problème de citation_categorie qui décroit à chaque appel
+	const dataCopy = data.map((item) => ({
+		...item,
+	}));
+
+	// Si la catégorie est "Toutes", retourner l'intégralité des données
+	if (categorie === "Toutes") {
+		return dataCopy;
+	} else {
+		// Convertir la catégorie en base64 et s'assurer qu'il n'y a pas d'espaces superflus
+		const base64Categorie = btoa(categorie.trim()).trim();
+
+		// Filtrer les citations en comparant la catégorie encodée
+		const citations_categorie = dataCopy.filter(
+			(citation) => citation.categorie.trim() === base64Categorie
+		);
+		return citations_categorie;
+	}
+}
+
+// Décoder les valeurs encodées en Base64 et s'assurer que les accents sont correctement gérés
+function safeBase64Decode(base64Str) {
+	// Vérification et ajout du padding si nécessaire
+	let padding = base64Str.length % 4 === 0 ? "" : "=".repeat(4 - (base64Str.length % 4));
+	base64Str += padding;
+
+	try {
+		// Décodage de la chaîne en base64
+		const decodedStr = atob(base64Str);
+
+		// Convertir en UTF-8 en utilisant TextDecoder
+		const textDecoder = new TextDecoder("utf-8");
+		return textDecoder.decode(Uint8Array.from(decodedStr, (c) => c.charCodeAt(0)));
+	} catch (e) {
+		console.error("Erreur de décodage base64 :", e);
+		return null; // Retourne null en cas d'erreur
 	}
 }
 
