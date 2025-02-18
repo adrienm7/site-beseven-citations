@@ -112,10 +112,10 @@ grand-espace {
 /* Liens */
 
 .lien_site {
-	color: black;
+	color: white;
 }
 .lien_site:hover {
-	color: black;
+	color: white;
 }
 
 .bordure-bouton {
