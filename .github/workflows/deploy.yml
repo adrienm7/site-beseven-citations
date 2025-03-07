@@ -26,7 +26,7 @@ jobs:
     steps:
       # Étape 1 : Vérifier le code source
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Étape 2 : Configurer Node.js
       - name: Setup Node.js
@@ -45,11 +45,11 @@ jobs:
 
       # Étape 5 : Upload artifact
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist # Répertoire généré par Astro
 
       # Étape 6 : Déployer sur GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

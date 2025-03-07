@@ -72,7 +72,7 @@ footer {
 	text-align: center;
 	color: white;
 	background-color: black;
-	width: 100vw;
+	width: 100%;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 	font-size: 1rem;
@@ -112,9 +112,17 @@ grand-espace {
 /* Liens */
 
 .lien_site {
-	color: black;
+	color: white;
 }
 .lien_site:hover {
+	color: white;
+}
+
+
+.lien_site_header {
+	color: black;
+}
+.lien_site_header:hover {
 	color: black;
 }
 
